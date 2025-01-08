@@ -13,7 +13,7 @@ const center = {
 
 const Map = () => {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDOMcTos_0yMt4q1TzZuAWhABzXdzIDj94", // Replace with your Google Maps API key
+    googleMapsApiKey: process.env.REACT_APP_API_KEY // Replace with your Google Maps API key
   });
   
   const [selectedLocation, setSelectedLocation] = useState(null);
