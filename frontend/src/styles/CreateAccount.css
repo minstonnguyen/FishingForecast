@@ -1,0 +1,115 @@
+.form {
+    background-color: rgb(53, 77, 197); 
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 320px;
+    margin: auto;
+    
+  }
+  
+  .title {
+    color: #eee;
+    font-family: "Inter";
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .subtitle {
+    color: #eee;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .input-container {
+    height: 50px;
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .input {
+    background-color: #303245;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
+  }
+  
+  .cut {
+    background-color: rgb(53, 77, 197); 
+    border-radius: 10px;
+    height: 20px;
+    left: 20px;
+    position: absolute;
+    top: -20px;
+    transform: translateY(0);
+    transition: transform 200ms;
+    width: 76px;
+  }
+  
+  .cut-short {
+    width: 50px;
+  }
+  
+  .iLabel {
+    color: #65657b;
+    font-family: "Inter";
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+  }
+  .hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .input:focus ~ .cut {
+    transform: translateY(8px);
+  }
+  
+  .input:focus ~ .iLabel {
+    transform: translateY(-30px) translateX(10px) scale(0.75);
+  }
+  
+  .input:not(:focus) ~ .iLabel {
+    color: #808097;
+  }
+  
+  .input:focus ~ .iLabel {
+    color: #dc2f55;
+  }
+  
+  .submit {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    text-align: center;
+    width: 100%;
+    font-family: "Inter";
+  }
+  
+  .submit:active {
+    background-color: #06b;
+  }
+  
