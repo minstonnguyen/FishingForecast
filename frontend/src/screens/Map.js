@@ -1,27 +1,22 @@
 import React, { useState } from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-
-const containerStyle = {
-  width: "100%",
-  height: "500px",
-};
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import '../styles/Map.css';
+import { useGoogleMaps } from "../GoogleMapContext";
 
 const center = {
   lat: 37.7749, // Default latitude
   lng: -122.4194, // Default longitude
 };
 
-const Map = () => {
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_API_KEY // Replace with your Google Maps API key
-  });
-  
-  const [selectedLocation, setSelectedLocation] = useState(null);
+const Map = ({ selectedLocation }) => {
+  const { isLoaded } = useGoogleMaps();
+
+  const [mapClickLocation, setMapClickLocation] = useState(null);
 
   const handleMapClick = (event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
-    setSelectedLocation({ lat, lng });
+    setMapClickLocation({ lat, lng });
     console.log("Selected Location:", { lat, lng });
   };
 
@@ -32,20 +27,22 @@ const Map = () => {
   return (
     <div>
       <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
+        mapContainerClassName="map-container"
+        center={selectedLocation || center}
         zoom={10}
         onClick={handleMapClick}
       >
-        {selectedLocation && (
-          <Marker position={selectedLocation} />
-        )}
+        {selectedLocation && <Marker position={selectedLocation} />}
+        {mapClickLocation && <Marker position={mapClickLocation} />}
       </GoogleMap>
-      {selectedLocation && (
+      {(selectedLocation || mapClickLocation) && (
         <div>
-          <h3>Selected Location:</h3>
-          <p>Latitude: {selectedLocation.lat}</p>
-          <p>Longitude: {selectedLocation.lng}</p>
+          <p className="coordinates">
+            Latitude: {(selectedLocation || mapClickLocation).lat}
+          </p>
+          <p className="coordinates">
+            Longitude: {(selectedLocation || mapClickLocation).lng}
+          </p>
         </div>
       )}
     </div>
