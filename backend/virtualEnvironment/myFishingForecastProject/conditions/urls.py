@@ -4,5 +4,6 @@ from . import views
 urlpatterns = [
     path('conditions/', views.conditions, name='conditions'),
     path('getSwellData/', views.getSwellData, name='getSwellData'),
-    path('getWeatherData/', views.getWeatherData, name='getWeatherData')
+    path('getWeatherData/', views.getWeatherData, name='getWeatherData'),
+    path('getMoonData/', views.getMoonData, name='getMoonData')
 ]

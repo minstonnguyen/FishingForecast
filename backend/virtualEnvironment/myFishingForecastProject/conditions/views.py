@@ -7,7 +7,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from retry_requests import retry
 from io import BytesIO
+from datetime import datetime, timedelta, timezone
 import base64
+import requests 
 
 plt.switch_backend('Agg')
 
@@ -87,7 +89,28 @@ def getSwellData(request):
     
     return JsonResponse(hourly_dataframe.to_dict(orient="list"))
 
+def getMoonData(request):
+    today = datetime.now(timezone.utc).date()
+    one_week_later = today + timedelta(days=7)
+    # USNO API URL with 7 days of moon phases
+    api_url = f"https://aa.usno.navy.mil/api/moon/phases/date?date={today}&nump=7"
+    
+    try:
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            
+            # Extract relevant moon phases occurring in the next 7 days
+            filtered_phases = [
+                phase for phase in data.get("phasedata", [])
+                if today <= datetime(phase["year"], phase["month"], phase["day"]).date() <= one_week_later
+            ]
+            
+            return JsonResponse({"moon_phases": filtered_phases})
+    except requests.RequestException as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
+    response = requests.get(url)
 def getWeatherData(request):
     cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
     retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
