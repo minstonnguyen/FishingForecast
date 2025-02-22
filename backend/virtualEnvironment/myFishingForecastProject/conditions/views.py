@@ -110,7 +110,7 @@ def getMoonData(request):
     except requests.RequestException as e:
         return JsonResponse({"error": str(e)}, status=500)
 
-    response = requests.get(url)
+
 def getWeatherData(request):
     cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
     retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)

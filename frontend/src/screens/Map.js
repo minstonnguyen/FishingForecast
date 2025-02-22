@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import '../styles/Map.css';
 import { useGoogleMaps } from "../GoogleMapContext";
@@ -8,17 +8,27 @@ const center = {
   lng: -122.4194, // Default longitude
 };
 
-const Map = ({ selectedLocation }) => {
+const Map = ({ selectedLocation, onLocationSelect }) => {
   const { isLoaded } = useGoogleMaps();
-
+  const mapRef = useRef(null);
   const [mapClickLocation, setMapClickLocation] = useState(null);
 
   const handleMapClick = (event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
     setMapClickLocation({ lat, lng });
+    onLocationSelect({lat, lng});
+    if (mapRef.current){
+      mapRef.current.panTo({lat, lng});
+    }
     console.log("Selected Location:", { lat, lng });
   };
+
+  useEffect(() => {
+    if (mapRef.current && selectedLocation) {
+      mapRef.current.panTo(selectedLocation);
+    }
+  }, [selectedLocation]);
 
   if (!isLoaded) {
     return <div>Loading...</div>;

@@ -33,7 +33,7 @@ export function createLoader() {
   
     // Create the "Loading" text span
     const loadingText = document.createElement('span');
-    loadingText.textContent = 'Loading';
+    loadingText.textContent = 'Getting Fishing Conditions...';
   
     // Append the inner div and loading text to the loader container
     loaderContainer.appendChild(innerDiv);

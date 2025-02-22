@@ -10,6 +10,7 @@ import Logbook from './screens/Logbook';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { GoogleMapsProvider } from './GoogleMapContext';
 import AuthContextProvider from './context/AuthContext';
+import ForecastResults from './screens/ForecastResults';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/createaccount" element={<CreateAccount />} />
                 <Route path="/fishingforecast" element={<FishingForecast />} />
                 <Route path="/logbook" element={<Logbook />} />
+                <Route path="/forecastresults" element={<ForecastResults />} />
               </Routes>
           </div>    
         </Router>
